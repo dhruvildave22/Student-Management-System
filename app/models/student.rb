@@ -4,7 +4,7 @@ class Student < ApplicationRecord
   belongs_to :school
   belongs_to :classroom
 
-  validates :std_name, :std_father_name, :std_gender, :std_date_of_birth, :std_address, :std_date_of_join, presence: true
+  validates :school_id, :std_name, :std_father_name, :std_gender, :std_date_of_birth, :std_address, :std_date_of_join, presence: true
   validates :std_name, :std_father_name, length: { in: 3..15}
   validates :std_gender, inclusion: { in: %w(male female others),
     message: "%{value} is not a valid gender" }
