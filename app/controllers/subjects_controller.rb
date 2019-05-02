@@ -1,46 +1,52 @@
-class StudentsController < ApplicationController
+class SubjectsController < ApplicationController
+  skip_before_action :verify_authenticity_token
+
+  before_action :set_teacher
+  before_action :set_subject, only: [:show, :update, :destroy]
+
+
+
   def index
-    @subject = Subject.all
+    json_response(@teacher.subjects)
   end
 
-  def new
-    @subject = Subject.new
-  end
-
-  def create
-    @teacher = Teacher.find(params[:teacher_id])
-    @subject = @teacher.subjects.create(subject_params)
-    if @subject.save
-      redirect_to @subject
-    else
-      render 'new'
-    end
-  end
 
   def show
-    @subject = Subject.find(params[:id])
+    json_response(@subject)
+  end
+
+  # def new
+  #   @subject = Subject.new
+  # end
+
+  def create
+    @teacher.subjects.create(subject_params)
+    json_response(@teacher, :created)
   end
 
   def update
-    @subject = Subject.find(params[:id])
     if @subject.update(subject_params)
-      redirect_to @subject
+      json_response(@subject, :updated)
     else
-      render 'new'
+      json_response(@subject, :unprocessable_entity)
     end
-  end
+  end    
 
   def destroy
-    @teacher = Teacher.find(params[:teacher_id])
-    @subject = @teacher.subjects.find(params[:id])
     @subject.destroy
-
-    redirect_to 'new'
   end
 
   private
 
+  def set_teacher
+    @teacher = Teacher.find(params[:teacher_id])
+  end
+
+  def set_subject
+    @subject = Subject.find(params[:id])
+  endproutes
+
   def subject_params
-    params.require(:student).permit(:subject_name, :teacher_id)
+    params.require(:teacher).permit(:subject_name, :teacher_id)
   end
 end

@@ -1,44 +1,51 @@
-class ExamsController < ApplicationController
-   def index
-    @exam = Exam.all
+class SubjectsController < ApplicationController
+    skip_before_action :verify_authenticity_token
+
+
+  before_action :set_subject
+  before_action :set_exam, only: [:show, :update, :destroy]
+
+
+
+  def index
+    json_response(@subject.exams)
   end
 
-  def new
-    @exam = Exam.new
-  end
-
-  def create
-    @subject = Subject.find(params[:subject_id])
-    @exam = @subject.exams.create(exam_params)
-    if @exam.save
-      redirect_to @exam
-    else
-      render 'new'
-    end
-  end
 
   def show
-    @exam = Exam.find(params[:id])
+    json_response(@exam)
+  end
+
+  # def new
+  #   @subject = Subject.new
+  # end
+
+  def create
+    @subject.exams.create(exam_params)
+    json_response(@subject, :created)
   end
 
   def update
-    @exam = Exam.find(params[:id])
     if @exam.update(exam_params)
-      redirect_to @exam
+      json_response(@exam, :updated)
     else
-      render 'new'
+      json_response(@exam, :unprocessable_entity)
     end
-  end
+  end    
 
   def destroy
-    @subject = Subject.find(params[:subject_id])
-    @exam = @subject.exams.find(params[:id])
     @exam.destroy
-
-    redirect_to 'new'
   end
 
   private
+
+  def set_subject
+    @subject = Subject.find(params[:subject_id])
+  end
+
+  def set_exam
+    @exam = Exam.find(params[:id])
+  end
 
   def exam_params
     params.require(:exam).permit(:exam_name, :exam_duration, :subject_id)
