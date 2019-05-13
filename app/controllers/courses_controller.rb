@@ -6,7 +6,7 @@ class CoursesControllers < ApplicationController
 
 
   def index
-    json_response(@school.course)
+    json_response(@school.course), each_serializer: CourseSerializer
   end
 
    # GET /school/:school_id/teachers/:id

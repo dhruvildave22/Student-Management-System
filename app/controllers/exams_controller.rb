@@ -1,14 +1,12 @@
-class SubjectsController < ApplicationController
-    skip_before_action :verify_authenticity_token
-
-
+class ExamsController < ApplicationController
+  skip_before_action :verify_authenticity_token
   before_action :set_subject
   before_action :set_exam, only: [:show, :update, :destroy]
 
 
 
   def index
-    json_response(@subject.exams)
+    json_response(@subject.exams), each_serializer: SubjectSerializer
   end
 
 
