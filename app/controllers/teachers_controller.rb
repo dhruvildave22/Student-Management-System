@@ -7,7 +7,7 @@ class TeachersController < ApplicationController
   #GET /school/:school_id/teachers
 
   def index
-    json_response(@school.teachers)
+    json_response(@school.teachers), each_serializer: TeacherSerializer
   end
 
    # GET /school/:school_id/teachers/:id

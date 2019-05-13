@@ -7,7 +7,7 @@ class SubjectsController < ApplicationController
 
 
   def index
-    json_response(@teacher.subjects)
+    json_response(@teacher.subjects), each_serializer: SubjectSerializer
   end
 
 

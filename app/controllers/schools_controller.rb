@@ -4,7 +4,7 @@ class SchoolsController < ApplicationController
 
   def index
     @school = School.all
-    render json: @school
+    render json: @school, each_serializer: SchoolSerializer
   end
 
   # def new
@@ -30,7 +30,7 @@ class SchoolsController < ApplicationController
         format.json { render json: @school.errors, status: :unprocessable_entity }
       end
     end
-    rescue ActiveRecord::RecordNotFound => e
+    rescue ActiveRecord::InvalidRecord => e
       respond_to do |format|
       format.json { render json: { error: e.message }, status: :not_found }
     end
