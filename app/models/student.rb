@@ -1,7 +1,7 @@
   class Student < ApplicationRecord
   has_many :subjects
   has_many :exams
-  belongs_to :school
+  belongs_to :UserType
 
   validates :school_id, :std_name, :std_father_name, :std_gender, :std_date_of_birth, :std_address, :std_date_of_join, presence: true
   validates :std_name, :std_father_name, length: { in: 3..15}

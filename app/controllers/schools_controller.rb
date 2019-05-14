@@ -4,7 +4,7 @@ class SchoolsController < ApplicationController
 
   def index
     @school = School.all
-    render json: @school, each_serializer: SchoolSerializer
+    render json: @school
   end
 
   # def new
@@ -68,7 +68,7 @@ class SchoolsController < ApplicationController
   end
 
   def school_params
-    params.require(:school).permit(:s_name, :s_address, :phone_no)
+    params.require(:school).permit(:s_name, :s_address, :phone_no, :teachers, :students)
   end
 end
 

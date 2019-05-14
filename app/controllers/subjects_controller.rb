@@ -1,13 +1,13 @@
 class SubjectsController < ApplicationController
   skip_before_action :verify_authenticity_token
 
-  before_action :set_teacher
+  # before_action :set_teacher
   before_action :set_subject, only: [:show, :update, :destroy]
 
 
 
   def index
-    json_response(@teacher.subjects), each_serializer: SubjectSerializer
+    json_response(@teacher.subjects)
   end
 
 
@@ -44,9 +44,9 @@ class SubjectsController < ApplicationController
 
   def set_subject
     @subject = Subject.find(params[:id])
-  endproutes
+  end
 
   def subject_params
-    params.require(:teacher).permit(:subject_name, :teacher_id)
+    params.require(:subject).permit(:subject_name, :teacher_id)
   end
 end

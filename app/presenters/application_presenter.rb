@@ -1,6 +1,8 @@
-class ApplicationPresenter < SimpleDelegator
-  def initialize(model, view)
-    @model, @view = model, view
-    super(@model)
+class ApplicationPresenter
+
+  def initialize(object, template)
+    @object = object
+    @template = template
   end
+  
 end

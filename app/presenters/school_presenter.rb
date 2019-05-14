@@ -1,17 +1,12 @@
 class SchoolPresenter < ApplicationPresenter
-  def initialize(model, view)
-    @model = model
-    @view = view
-  end
+  presents :school
+   delegate :s_name, to: :school
 
-  def info
-   "#{s_name}" 
+  def linked_name
+    site_link(school.full_name.present? ? school.full_name : school.s_name)
   end
-
   private
-
-  def methode_missing(*args, &block)
-    @model.send(*args, &block)
+  def site_link(content)
+    h.link_to_if(school.url.present?, content, school.url)
   end
-
 end

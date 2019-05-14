@@ -7,7 +7,7 @@ class TeachersController < ApplicationController
   #GET /school/:school_id/teachers
 
   def index
-    json_response(@school.teachers), each_serializer: TeacherSerializer
+    json_response(@school.teachers)
   end
 
    # GET /school/:school_id/teachers/:id
@@ -23,7 +23,7 @@ class TeachersController < ApplicationController
   end
 
   def create
-    @school.teacher.create(teacher_params)
+    @school.teachers.create(teacher_params)
     json_response(@school, :created)
   end
 

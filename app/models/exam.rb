@@ -1,4 +1,4 @@
-class Exam < ApplcationRecord
+class Exam < ApplicationRecord
   has_many :students
   belongs_to :subject
 
