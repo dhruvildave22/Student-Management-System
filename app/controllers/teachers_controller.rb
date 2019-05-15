@@ -2,7 +2,7 @@ class TeachersController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   before_action :set_school
-  before_action :set_teacher, only: [:show, :update, :destroy]
+  before_action :set_teacher, only: [:new, :show, :update, :destroy]
 
   #GET /school/:school_id/teachers
 
@@ -49,6 +49,6 @@ class TeachersController < ApplicationController
   end
 
   def teacher_params
-    params.require(:teacher).permit(:t_name, :father_name, :gender, :date_of_birth, :t_address, :date_of_join, :school_id)
+    params.require(:teacher).permit(:t_name, :father_name, :gender, :date_of_birth, :t_address, :date_of_join, :school_id, :teacherable_id, :teacherable_type)
   end
 end

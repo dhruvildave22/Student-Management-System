@@ -2,6 +2,8 @@ class SchoolsController < ApplicationController
   skip_before_action :verify_authenticity_token
   before_action :set_school, only: [:show, :update, :destroy]
 
+  include Schoolable
+
   def index
     @school = School.all
     render json: @school
@@ -68,7 +70,7 @@ class SchoolsController < ApplicationController
   end
 
   def school_params
-    params.require(:school).permit(:s_name, :s_address, :phone_no, :teachers, :students)
+    params.require(:school).permit(:s_name, :s_address, :phone_no)
   end
 end
 
