@@ -1,5 +1,9 @@
 class Teacher < ApplicationRecord
-  has_many :subjects
+  # has_and_belongs_to_many :subjects
+  has_many :subject_teachers
+  has_many :subjects, through: :subject_teachers
+  has_many :klasses
+  has_many :students, through: :klasses
   belongs_to :teacherable, polymorphic: true
   
   validates :school_id, :t_name, :father_name, :gender, :date_of_birth, :t_address, :date_of_join, presence: true

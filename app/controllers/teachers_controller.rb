@@ -1,49 +1,48 @@
 class TeachersController < ApplicationController
   skip_before_action :verify_authenticity_token
-
-  before_action :set_school
-  before_action :set_teacher, only: [:new, :show, :update, :destroy]
-
-  #GET /school/:school_id/teachers
-
-  def index
-    json_response(@school.teachers)
+  def new
+    @teacher = Teacher.new
+    respond_to do |format|
+      format.json { render json: { teacher: @teacher }, status: :ok }
+    end
   end
-
-   # GET /school/:school_id/teachers/:id
 
   def show
-    json_response(@teacher)
-  end
-
-  #GET /school/:school_id/teachers/:id
-  def new
-    @school = School.find(params[:school_id])
-    @teacher = Teacher.new
+    @teacher = Teacher.find(params[:id])
+    respond_to do |format|
+      format.json { render json: { teacher: @teacher }, status: :ok }
+    end
   end
 
   def create
-    @school.teachers.create(teacher_params)
-    json_response(@school, :created)
+    @teacher = Teacher.new(teacher_params)
+    respond_to do |format|
+      if @teacher.save
+        format.html { redirect_to school_path(@teacher.school) }
+        format.json { render json: { teacher: @teacher }, status: :created }
+      end
+    end
+  end
+
+  def destroy
+  end
+
+  def index
+    @teachers = Teacher.all
+    render json: { teachers: @teachers }, status: :ok 
+  end
+
+  def edit
+    @teacher = Teacher.find(params[:id])
+    respond_to do |format|
+      format.json { render json: { teacher: @teacher }, status: :ok }
+    end
   end
 
   def update
-    if @teacher.update(teacher_params)
-      json_response(@teacher, :updated)
-    else
-      json_response(@teacher, :unprocessable_entity)
-    end
-  end    
-
-  def destroy
-    @teacher.destroy
   end
 
   private
-   def set_school
-    @school = School.find(params[:school_id])
-  end
-
   def set_teacher
     @teacher = Teacher.find(params[:id])
   end

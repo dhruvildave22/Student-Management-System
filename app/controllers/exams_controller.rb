@@ -1,25 +1,19 @@
 class ExamsController < ApplicationController
   skip_before_action :verify_authenticity_token
-  before_action :set_subject
   before_action :set_exam, only: [:show, :update, :destroy]
 
-
-
   def index
-    json_response(@subject.exams), each_serializer: SubjectSerializer
+     @exams = Exam.all
+    render json: { exams: @exams }, status: :ok 
   end
-
 
   def show
     json_response(@exam)
   end
 
-  # def new
-  #   @subject = Subject.new
-  # end
 
   def create
-    @subject.exams.create(exam_params)
+    Exam.create(exam_params)
     json_response(@subject, :created)
   end
 
@@ -37,16 +31,12 @@ class ExamsController < ApplicationController
 
   private
 
-  def set_subject
-    @subject = Subject.find(params[:subject_id])
-  end
-
   def set_exam
     @exam = Exam.find(params[:id])
   end
 
   def exam_params
-    params.require(:exam).permit(:exam_name, :exam_duration, :subject_id)
+    params.require(:exam).permit(:exam_name, :exam_duration, :subject_id, :student_id)
   end
 
 end

@@ -1,8 +1,7 @@
 class Subject < ApplicationRecord
   has_many :students
   has_one :exam
-  belongs_to :teacher
-
-  validates :teacher_id, :subject_name, length: { in: 3..15}, presence: true
-
+  has_many :subject_teachers
+  has_many :teachers, through: :subject_teachers
+  validates :teacher_id, :subject_name, presence: true
 end

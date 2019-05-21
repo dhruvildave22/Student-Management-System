@@ -1,18 +1,18 @@
-class CoursesControllers < ApplicationController
-    skip_before_action :verify_authenticity_token
-
-  before_action :set_school
+class CoursesController < ApplicationController
+  skip_before_action :verify_authenticity_token
   before_action :set_course, only: [:show, :update, :destroy]
 
-
   def index
-    json_response(@school.course), each_serializer: CourseSerializer
+    @courses = Course.all
+    render json: { courses: @courses }, status: :ok 
   end
 
    # GET /school/:school_id/teachers/:id
 
   def show
-    json_response(@course)
+    respond_to do |format|
+      format.json { render json: @course, status: :ok }
+    end
   end
 
   #GET /school/:school_id/teachers/:id
@@ -21,8 +21,12 @@ class CoursesControllers < ApplicationController
   end
 
   def create
-    @school.teacher.create(teacher_params)
-    json_response(@school, :created)
+    @course = Course.create(course_params)
+    respond_to do |format|
+      if @course.save
+        format.json { render json: @course, status: :created }
+      end
+    end
   end
 
   def update
@@ -38,14 +42,10 @@ class CoursesControllers < ApplicationController
   end
 
   private
-   def set_school
-    @school = School.find(params[:school_id])
-  end
 
   def set_course
     @course = Course.find(params[:id])
   end
-
 
   def course_params
     params.require(:course).permit(:course_type, :school_id)

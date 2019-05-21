@@ -7,7 +7,8 @@ class SubjectsController < ApplicationController
 
 
   def index
-    json_response(@teacher.subjects)
+    @subjects = Subject.all
+    render json: { subjects: @subjects }, status: :ok 
   end
 
 
