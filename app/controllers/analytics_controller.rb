@@ -32,15 +32,8 @@ class AnalyticsController < ApplicationController
   end
 
   def get_students_by_teacher_through_subject
-    @teacher = Teacher.find_by_t_name(params[:t_name])
-    @subject = @teacher.subjects.find_by_subject_name(params[:subject_name])
-    @students = @subject.students
-    render json: @students
+    subject = Subject.find_by_subject_name(params[:subject_name])
+    teacher = subject.teachers
+    render json: teacher
   end
-
 end
-
-
-# @exam = Exam.where("exam_name" => params[:exam_name])
-    # @students = @exam.students
-    # render json: @students
