@@ -8,6 +8,7 @@ class Student < ApplicationRecord
   belongs_to :course
   has_many :subjects
   has_many :teachers, through: :subjects
+
   validates :exam_id, :school_id, :std_name, :std_father_name, :std_gender, :std_date_of_birth, :std_address, :std_date_of_join, presence: true
   validates :std_name, :std_father_name, length: { in: 3..15}
   validates :std_gender, inclusion: { in: %w(male female others),
