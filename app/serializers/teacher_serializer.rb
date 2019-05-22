@@ -1,5 +1,6 @@
 class TeacherSerializer < ApplicationSerializer
-  attributes :id, :t_name, :date_of_join, :students
+  attributes :id, :t_name
+
 
 
 end

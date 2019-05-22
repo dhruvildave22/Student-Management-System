@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_21_045239) do
+ActiveRecord::Schema.define(version: 2019_05_22_055906) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -77,9 +77,11 @@ ActiveRecord::Schema.define(version: 2019_05_21_045239) do
     t.bigint "course_id"
     t.bigint "exam_id"
     t.bigint "subject_id"
+    t.bigint "teacher_id"
     t.index ["course_id"], name: "index_students_on_course_id"
     t.index ["school_id"], name: "index_students_on_school_id"
     t.index ["subject_id"], name: "index_students_on_subject_id"
+    t.index ["teacher_id"], name: "index_students_on_teacher_id"
   end
 
   create_table "students_exams", force: :cascade do |t|
@@ -89,11 +91,25 @@ ActiveRecord::Schema.define(version: 2019_05_21_045239) do
     t.index ["student_id"], name: "index_students_exams_on_student_id"
   end
 
+  create_table "subject_enrollment", force: :cascade do |t|
+    t.integer "student_id"
+    t.integer "teacher_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "subject_teachers", force: :cascade do |t|
     t.integer "subject_id"
     t.integer "teacher_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "subject_types", force: :cascade do |t|
+    t.bigint "teacher_id"
+    t.bigint "student_id"
+    t.index ["student_id"], name: "index_subject_types_on_student_id"
+    t.index ["teacher_id"], name: "index_subject_types_on_teacher_id"
   end
 
   create_table "subjects", force: :cascade do |t|
@@ -135,8 +151,11 @@ ActiveRecord::Schema.define(version: 2019_05_21_045239) do
   add_foreign_key "students", "courses"
   add_foreign_key "students", "schools"
   add_foreign_key "students", "subjects"
+  add_foreign_key "students", "teachers"
   add_foreign_key "students_exams", "exams"
   add_foreign_key "students_exams", "students"
+  add_foreign_key "subject_types", "students"
+  add_foreign_key "subject_types", "teachers"
   add_foreign_key "subjects", "students"
   add_foreign_key "subjects", "teachers"
   add_foreign_key "teachers", "schools"
