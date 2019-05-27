@@ -1,4 +1,5 @@
 class AnalyticsController < ApplicationController
+  helper :analytics
 
   def get_students_by_queries
     student = Student.where("std_date_of_join >= ?", params[:start_date])
@@ -16,9 +17,7 @@ class AnalyticsController < ApplicationController
   def get_students_by_course
     get_course = Course.find_by_course_type(params[:course_type]) 
     @all_students = get_course.students
-   
-
-     # render json: { students: @all_students }
+    # render json: { students: @all_students }
   end
 
   def get_students_by_exam
