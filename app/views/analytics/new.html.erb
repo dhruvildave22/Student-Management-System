@@ -1,7 +1,6 @@
 <h1>Students</h1>
-<%= jiggle %> <br />
-<%= 
-form_tag({controller: "analytics", action: "get_students_by_course"}, method: "get") do %>
+
+<%= form_tag({controller: "analytics", action: "get_students_by_course"}, method: "get") do %>
   <%= label_tag(:course_type, "Search for:") %>
   <%= text_field_tag(:course_type) %>
   <%= submit_tag("Search") %>

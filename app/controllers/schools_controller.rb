@@ -6,6 +6,10 @@ class SchoolsController < ApplicationController
 
   def index
     @school = School.all
+    respond_to do |format|
+      format.html {}
+      format.json { render json: { school: @school }, status: :ok }
+    end
     # render json: @school
   end
 
