@@ -1,0 +1,6 @@
+<h1>Students</h1>
+
+
+<%= link_to('RBSE',{:action => 'get_students_by_course', :course_type => "RBSE"}) %> <br />
+<%= link_to('CBSE',{:action => 'get_students_by_course', :course_type => "CBSE"}) %> <br />
+<%= link_to('others',{:action => 'get_students_by_course', :course_type => "others"}) %>

@@ -7,10 +7,13 @@ Rails.application.routes.draw do
   resources :exams
   resources :students
   resources :courses
-  get '/get_students_by_queries', to: 'analytics#get_students_by_queries'
-  get '/get_students_by_exam', to: 'analytics#get_students_by_exam'
-  get '/get_students_by_course', to: 'analytics#get_students_by_course'
-  get '/get_students_count_for_course', to: 'analytics#get_students_count_for_course'
-  get '/get_teacher_by_subject', to: 'analytics#get_teacher_by_subject'
-  get '/get_students_by_teacher_through_subject', to: 'analytics#get_students_by_teacher_through_subject'
+
+  resource :analytics, only: [:new]
+  get 'analytics/get_students_by_queries', to: 'analytics#get_students_by_queries'
+  get 'analytics/get_students_by_exam', to: 'analytics#get_students_by_exam'
+  get 'analytics/get_students_by_course', to: 'analytics#get_students_by_course'
+  get 'analytics/get_students_count_for_course', to: 'analytics#get_students_count_for_course'
+  get 'analytics/get_teacher_by_subject', to: 'analytics#get_teacher_by_subject'
+  get 'analytics/get_students_by_teacher_through_subject', to: 'analytics#get_students_by_teacher_through_subject'
 end
+ 

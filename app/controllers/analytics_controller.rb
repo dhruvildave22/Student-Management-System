@@ -15,8 +15,10 @@ class AnalyticsController < ApplicationController
 
   def get_students_by_course
     get_course = Course.find_by_course_type(params[:course_type]) 
-    all_students = get_course.students
-    render json: { students: all_students }
+    @all_students = get_course.students
+   
+
+     # render json: { students: @all_students }
   end
 
   def get_students_by_exam

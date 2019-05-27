@@ -1,4 +1,7 @@
 <h1>Showing all students</h1>
-<p>
-	Student: <%= @all_students.std_name %>
-</p>
+<%= @all_students.each do |a| %>
+<p><%= a.std_name %> </p>
+<% end %>
+<br />
+
+<p>No. of students: <%= @all_students.count %></p>
