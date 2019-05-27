@@ -1,8 +1,11 @@
 <h1>Students</h1>
 
-<%= form_tag({controller: "analytics", action: "get_students_by_course"}, method: "get") do %>
-  <%= label_tag(:course_type, "Search for:") %>
-  <%= text_field_tag(:course_type) %>
-  <%= submit_tag("Search") %>
-<% end %>
+
+ <%= my_form_tag 'get_students_by_course' do %>
+ <%= my_label_tag 'Search For:' %>
+ <%= my_text_field_tag '@all_students[:course_type]'%>
+<%= my_submit_tag %>
+
+ <% end %>
+
 
