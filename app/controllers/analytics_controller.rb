@@ -15,10 +15,11 @@ class AnalyticsController < ApplicationController
   end
 
   def get_students_by_course
-   
+    get_course = Course.find_by_course_type(params[:course_type]) 
+    @all_students = get_course.students
     respond_to do |format|
       format.html {}
-      format.json { render json: { school: @all_students }, status: :ok }
+      format.json { render json: { students: @all_students }, status: :ok }
     end
     # render json: { students: @all_students }
   end
@@ -30,9 +31,9 @@ class AnalyticsController < ApplicationController
   end
 
   def get_teacher_by_subject
-    teacher = Teacher.find_by_t_name(params[:t_name])
-    subjects = teacher.subjects
-    render json: subjects
+    get_subject = Subject.find_by_subject_name(params[:subject_name])
+    all_teachers = get_subject.teachers
+    render json: all_teachers
   end
 
   def get_students_by_teacher_through_subject
