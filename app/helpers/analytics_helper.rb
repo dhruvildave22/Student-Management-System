@@ -19,7 +19,7 @@ module AnalyticsHelper
   
   def get_student_using_course(course_type)
     get_course = Course.find_by_course_type(course_type) 
-    @all_students = get_course.students
+    @all_student = get_course.students
   end
 
 end

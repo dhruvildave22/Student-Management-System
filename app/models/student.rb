@@ -2,7 +2,7 @@ class Student < ApplicationRecord
   belongs_to :course
   has_many :subject_type
   has_many :teachers, :through=>:subject_type
-  has_many :subjects, through: :subjectenrollment
+  has_many :subjects, through: :subject_enrollment
   has_many :student_courses
   has_many :courses, through: :student_courses
   has_many :exam_students
