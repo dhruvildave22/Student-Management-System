@@ -1,5 +1,4 @@
 class StudentsController < ApplicationController
-  
   skip_before_action :verify_authenticity_token
 
   def index
@@ -47,6 +46,7 @@ class StudentsController < ApplicationController
   def set_student
     @student = @school.students.find(params[:id])
   end
+  
   def student_params
     params.require(:student).permit(:std_name, :std_father_name, :std_gender, :std_date_of_birth, :std_address, :std_date_of_join, :school_id ,:exam_id)
   end

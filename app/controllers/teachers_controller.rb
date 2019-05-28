@@ -1,5 +1,6 @@
 class TeachersController < ApplicationController
   skip_before_action :verify_authenticity_token
+
   def new
     @teacher = Teacher.new
     respond_to do |format|
@@ -24,9 +25,6 @@ class TeachersController < ApplicationController
     end
   end
 
-  def destroy
-  end
-
   def index
     @teachers = Teacher.all
     render json: @teachers
@@ -37,9 +35,6 @@ class TeachersController < ApplicationController
     respond_to do |format|
       format.json { render json: { teacher: @teacher }, status: :ok }
     end
-  end
-
-  def update
   end
 
   private

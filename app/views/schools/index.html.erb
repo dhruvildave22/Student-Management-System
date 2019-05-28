@@ -1,10 +1,10 @@
 <h1>School</h1>
 
 <% @school.each do |school| %>
-	<p><%= link_to school.s_name %></p>	
+  <p><%= link_to school.s_name %></p> 
 <% end %>
 <%= form_for '@all_students' do %>
-	<%= my_label_tag 'Search For:' %>
-	<%= my_text_field_tag '@all_students[:course_type]'%>
-	<%= my_submit_tag %>
+  <%= my_label_tag 'Search For:' %>
+  <%= my_text_field_tag '@all_students[:course_type]'%>
+  <%= my_submit_tag %>
 <% end %>

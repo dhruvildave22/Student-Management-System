@@ -2,8 +2,6 @@ class SchoolsController < ApplicationController
   skip_before_action :verify_authenticity_token
   before_action :set_school, only: [:show, :update, :destroy]
 
-  include Schoolable
-
   def index
     @school = School.all
     respond_to do |format|
@@ -35,9 +33,6 @@ class SchoolsController < ApplicationController
       respond_to do |format|
       format.json { render json: { error: e.message }, status: :not_found }
     end
-  end
-
-  def edit
   end
 
   def update

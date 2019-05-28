@@ -1,6 +1,5 @@
 class AnalyticsController < ApplicationController
-  helper :analytics
-
+  include AnalyticsHelper
   def get_students_by_queries
     student = Student.where("std_date_of_join >= ?", params[:start_date])
       respond_to do |format|
@@ -15,11 +14,10 @@ class AnalyticsController < ApplicationController
   end
 
   def get_students_by_course
-    get_course = Course.find_by_course_type(params[:course_type]) 
-    @all_students = get_course.students
+    @all_student = get_student_using_course(params[:course_type])
     respond_to do |format|
       format.html {}
-      format.json { render json: { students: @all_students }, status: :ok }
+      format.json { render json: { students: @all_student }, status: :ok }
     end
   end
 

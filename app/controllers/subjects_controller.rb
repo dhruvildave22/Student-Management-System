@@ -29,10 +29,6 @@ class SubjectsController < ApplicationController
   end
 
   private
-  def set_teacher
-    @teacher = Teacher.find(params[:teacher_id])
-  end
-
   def set_subject
     @subject = Subject.find(params[:id])
   end

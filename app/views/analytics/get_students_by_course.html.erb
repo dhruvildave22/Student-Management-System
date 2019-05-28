@@ -1,8 +1,6 @@
 <h1><%= title %></h1>
 <%= gravatar(@all_students.each, 72, 3) %>
 <%= @all_students.each do |a| %>
-<p><%= a.std_name %> </p>p
-<% end %>
-<br />
-
+  <p><%= a.std_name %> </p>p
+<% end %><br />
 <p>No. of students: <%= @all_students.count %></p>

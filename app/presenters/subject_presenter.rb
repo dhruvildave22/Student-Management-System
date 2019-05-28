@@ -1,2 +1,0 @@
-class SubjectPresenter < ApplicationPresenter
-end

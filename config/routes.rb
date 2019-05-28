@@ -1,13 +1,10 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-
   resources :schools
   resources :teachers
   resources :subjects
   resources :exams
   resources :students
   resources :courses
-
   resource :analytics, only: [:new]
   get 'analytics/get_students_by_queries', to: 'analytics#get_students_by_queries'
   get 'analytics/get_students_by_exam', to: 'analytics#get_students_by_exam'
