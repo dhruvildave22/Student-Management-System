@@ -11,7 +11,6 @@ class ExamsController < ApplicationController
     json_response(@exam)
   end
 
-
   def create
     Exam.create(exam_params)
     json_response(@subject, :created)

@@ -1,16 +1,11 @@
 class StudentsController < ApplicationController
   
   skip_before_action :verify_authenticity_token
-  # before_action :set_student, only: [:show, :destroy]
-
-  #GET /school/:school_id/students
 
   def index
     @student = Student.all
     render json: @student
   end
-
-   # GET /school/:school_id/students/:id
 
   def show
     @student = Student.find(params[:id])
@@ -19,7 +14,6 @@ class StudentsController < ApplicationController
     end
   end
 
-  #GET /school/:school_id/students/:id
   def new
     @student = Student.new
   end

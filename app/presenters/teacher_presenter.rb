@@ -1,0 +1,2 @@
+class TeacherPresenter < ApplicationPresenter
+end

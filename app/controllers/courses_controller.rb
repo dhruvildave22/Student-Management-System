@@ -7,15 +7,12 @@ class CoursesController < ApplicationController
     render json: { courses: @courses }, status: :ok 
   end
 
-   # GET /school/:school_id/teachers/:id
-
   def show
     respond_to do |format|
       format.json { render json: @course, status: :ok }
     end
   end
 
-  #GET /school/:school_id/teachers/:id
   def new
     @course = Course.new
   end

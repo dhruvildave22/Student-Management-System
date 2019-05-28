@@ -1,24 +1,15 @@
 class SubjectsController < ApplicationController
   skip_before_action :verify_authenticity_token
-
-  # before_action :set_teacher
   before_action :set_subject, only: [:show, :update, :destroy]
-
-
 
   def index
     @subjects = Subject.all
     render json: { subjects: @subjects }, status: :ok 
   end
 
-
   def show
     json_response(@subject)
   end
-
-  # def new
-  #   @subject = Subject.new
-  # end
 
   def create
     @teacher.subjects.create(subject_params)

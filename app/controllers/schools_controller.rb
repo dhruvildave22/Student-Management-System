@@ -10,12 +10,7 @@ class SchoolsController < ApplicationController
       format.html {}
       format.json { render json: { school: @school }, status: :ok }
     end
-    # render json: @school
   end
-
-  # def new
-  #   @school = School.new
-  # end
 
   def show
     respond_to do |format|
