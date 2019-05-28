@@ -1,8 +1,21 @@
 <h1>Students</h1>
-<%= std_names 'RBSE', 'analytics', 'get_stduents_by_course', 'get_students_by_course' %>
 
+<h3>Students from RBSE</h3>
+	<%= get_students_by_course("RBSE").each do |a| %>
+		<p><%= a.std_name %> </p>
+	<% end %> <br />
+	<p>No. of students: <%= @all_students.count %></p>
 
+<h3>Students from CBSE</h3>
+	<%= get_students_by_course("CBSE").each do |a| %>
+		<p><%= a.std_name %> </p>p
+	<% end %> <br />
+	<p>No. of students: <%= @all_students.count %></p>
 
- <br />
-	
+<h3>Students from other board</h3>
+	<%= get_students_by_course("others").each do |a| %>
+		<p><%= a.std_name %> </p>p
+	<% end %>
+	<p>No. of students: <%= @all_students.count %></p>
+
 
