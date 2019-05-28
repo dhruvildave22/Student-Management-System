@@ -22,14 +22,13 @@ class SubjectsController < ApplicationController
     else
       json_response(@subject, :unprocessable_entity)
     end
-  end    
+  end
 
   def destroy
     @subject.destroy
   end
 
   private
-
   def set_teacher
     @teacher = Teacher.find(params[:teacher_id])
   end

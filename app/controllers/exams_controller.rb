@@ -29,7 +29,6 @@ class ExamsController < ApplicationController
   end
 
   private
-
   def set_exam
     @exam = Exam.find(params[:id])
   end

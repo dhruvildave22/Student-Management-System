@@ -1,1 +1,2 @@
 class ExamPresenter < ApplicationPresenter
+end

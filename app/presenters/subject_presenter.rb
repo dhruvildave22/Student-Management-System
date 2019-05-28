@@ -1,1 +1,2 @@
 class SubjectPresenter < ApplicationPresenter
+end

@@ -37,10 +37,8 @@ class SchoolsController < ApplicationController
     end
   end
 
-
   def edit
   end
-
 
   def update
     respond_to do |format|
@@ -56,14 +54,11 @@ class SchoolsController < ApplicationController
     end
   end
 
-
   def destroy
     @school.destroy
   end
 
-
   private
-
   def set_school
    @school = School.find(params[:id])
   end

@@ -9,5 +9,4 @@ class Teacher < ApplicationRecord
     message: "%{value} is not a valid gender" }
   validates :date_of_birth, :date_of_join, numericality: { only_integer: true }
   validates :t_address, length: { in: 3..40 }
-
 end

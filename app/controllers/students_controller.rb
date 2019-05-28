@@ -44,7 +44,6 @@ class StudentsController < ApplicationController
   end
 
   private
-
   def set_student
     @student = @school.students.find(params[:id])
   end

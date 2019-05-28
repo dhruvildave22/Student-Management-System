@@ -21,7 +21,6 @@ class AnalyticsController < ApplicationController
       format.html {}
       format.json { render json: { students: @all_students }, status: :ok }
     end
-    # render json: { students: @all_students }
   end
 
   def get_students_by_exam
