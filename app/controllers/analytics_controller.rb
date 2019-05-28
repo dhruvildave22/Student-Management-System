@@ -1,5 +1,6 @@
 class AnalyticsController < ApplicationController
   include AnalyticsHelper
+  include Studentable
   def get_students_by_queries
     student = Student.where("std_date_of_join >= ?", params[:start_date])
       respond_to do |format|
@@ -34,12 +35,7 @@ class AnalyticsController < ApplicationController
   end
 
   def get_students_by_teacher_through_subject
-    s1 = Subject.find_by(subject_name:params[:subject_name])
-    get_teacher = s1.teachers
-    get_student = []
-    get_teacher.each do |t|
-      get_student.push(t.students)
-    end
+    get_student = find_all_students(params[:subject_name])
     render json: { req: get_student }
   end
 end
