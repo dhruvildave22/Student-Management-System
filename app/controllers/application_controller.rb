@@ -4,4 +4,5 @@ class ApplicationController < ActionController::Base
     klass ||= "#{object.class}Presenter".constantize
     klass.new(object, view_context)
   end
+  protect_from_forgery with: :exception
 end
