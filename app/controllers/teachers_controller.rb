@@ -1,9 +1,9 @@
 class TeachersController < ApplicationController
   skip_before_action :verify_authenticity_token
 
-    def index
+  def index
     teacher = Teacher.all
-     render json: { teacher: teacher }, status: :ok
+    render json: { teacher: teacher }, status: :ok
   end
 
   def show
