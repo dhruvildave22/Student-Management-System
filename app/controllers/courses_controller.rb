@@ -31,10 +31,6 @@ class CoursesController < ApplicationController
     end
   rescue StandardError => e
     render json: { error: e.message }, status: :unprocessable_entity 
-  end  
-
-  def edit
-    course = Course.find(params[:id])
   end
 
   def destroy

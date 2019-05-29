@@ -33,10 +33,6 @@ class TeachersController < ApplicationController
     render json: { error: e.message }, status: :unprocessable_entity
   end
 
-  def edit
-    teacher = Teacher.find(params[:id])
-  end
-
   def destroy
     teacher = Teacher.find(params[:id])
     teacher.destroy
