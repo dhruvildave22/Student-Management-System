@@ -2,47 +2,44 @@ class TeachersController < ApplicationController
   skip_before_action :verify_authenticity_token
 
     def index
-    @teacher = Teacher.all
-     render json: { teacher: @teacher }, status: :ok
+    teacher = Teacher.all
+     render json: { teacher: teacher }, status: :ok
   end
 
   def show
-    @teacher = Teacher.find(params[:id])
-    render json: { teacher: @teacher }, status: :ok
+    teacher = Teacher.find(params[:id])
+    render json: { teacher: teacher }, status: :ok
   rescue ActiveRecord::RecordNotFound => e
     render json: { error: e.message }, status: :not_found 
   end
 
   def create
-    @teacher = Teacher.new(teacher_params)
-    if @teacher.save
-      render json: { teacher: @teacher }, status: :created 
+    teacher = Teacher.new(teacher_params)
+    if teacher.save
+      render json: { teacher: teacher }, status: :created 
     else
-      render json: @teacher.errors, status: :unprocessable_entity
+      render json: teacher.errors, status: :unprocessable_entity
     end
   end
 
   def update
-    @teacher = Teacher.find(params[:id])
-    if @teacher.update(teacher_params)
-      render json: { teacher: @teacher }, status: :ok
+    teacher = Teacher.find(params[:id])
+    if teacher.update(teacher_params)
+      render json: { teacher: teacher }, status: :ok
     else
-      render json: @teacher.errors,  status: :unprocessable_entity
+      render json: teacher.errors,  status: :unprocessable_entity
     end
   rescue StandardError => e
     render json: { error: e.message }, status: :unprocessable_entity
   end
 
   def edit
-    @teacher = Teacher.find(params[:id])
-    render json: { teacher: @teacher }, status: :ok
-  rescue ActiveRecord::RecordNotFound => e
-    render json: { error: e.message }, status: :not_found 
+    teacher = Teacher.find(params[:id])
   end
 
   def destroy
-    @teacher = Teacher.find(params[:id])
-    @teacher.destroy
+    teacher = Teacher.find(params[:id])
+    teacher.destroy
     render json: { message: 'teacher is deleted'}, status: :ok
   rescue ActiveRecord::RecordNotFound => e
     render json: { error: e.message }, status: :unprocessable_entity
