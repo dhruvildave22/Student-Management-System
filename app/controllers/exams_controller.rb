@@ -10,7 +10,7 @@ class ExamsController < ApplicationController
   def show
     render json: { exam: @exam }, status: :ok }
   rescue ActiveRecord::RecordNotFound => e
-    render json: { error: e.message }, status: :not_found 
+    render json: { error: e.message }, status: :not_found
   end
 
   def create
