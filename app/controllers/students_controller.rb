@@ -4,54 +4,36 @@ class StudentsController < ApplicationController
 
   def index
     @student = Student.all
-    respond_to do |format|
-      format.json { render json: { student: @student }, status: :ok }
-    end
+    render json: { student: @student }, status: :ok
   end
 
   def show
-    respond_to do |format|
-      format.json { render json: { student: @student }, status: :ok }
-    end
+    render json: { student: @student }, status: :ok 
   rescue ActiveRecord::RecordNotFound => e
-    respond_to do |format|
-      format.json { render json: { error: e.message }, status: :not_found }
-    end
+    render json: { error: e.message }, status: :not_found
   end
 
   def update
-    respond_to do |format|
-      if @student.update(student_params)
-        format.json { render json: { student: @student }, status: :ok }
-      else
-        format.json { render json: @student.errors, status: :unprocessable_entity }
-      end
+    if @student.update(student_params)
+      render json: { student: @student }, status: :ok
+    else
+      render json: @student.errors, status: :unprocessable_entity
     end
   rescue StandardError => e
-    respond_to do |format|
-      format.json { render json: { error: e.message }, status: :unprocessable_entity }
-    end
+    render json: { error: e.message }, status: :unprocessable_entity
   end
 
   def edit
-    respond_to do |format|
-      format.json { render json: { student: @student }, status: :ok }
-    end
+    render json: { student: @student }, status: :ok
   rescue ActiveRecord::RecordNotFound => e
-    respond_to do |format|
-      format.json { render json: { error: e.message }, status: :not_found }
-    end
+    render json: { error: e.message }, status: :not_found
   end
 
   def destroy
-    respond_to do |format|
-      @student.destroy
-      format.json { render json: {}, status: :ok }
-    end
+    @student.destroy
+    render json: { message: 'student is deleted'}, status: :ok
   rescue ActiveRecord::RecordNotFound => e
-    respond_to do |format|
-      format.json { render json: { error: e.message }, status: :unprocessable_entity }
-    end
+    render json: { error: e.message }, status: :unprocessable_entity
   end
 
   private
