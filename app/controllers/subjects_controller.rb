@@ -4,65 +4,45 @@ class SubjectsController < ApplicationController
 
   def index
     @subject = Subject.all
-    respond_to do |format|
-      format.json { render json: { subject: @subject }, status: :ok }
-    end
+    render json: { subject: @subject }, status: :ok 
   end
 
   def show
-    respond_to do |format|
-      format.json { render json: { subject: @subject }, status: :ok }
-    end
+    render json: { subject: @subject }, status: :ok
   rescue ActiveRecord::RecordNotFound => e
-    respond_to do |format|
-      format.json { render json: { error: e.message }, status: :not_found }
-    end
+    render json: { error: e.message }, status: :not_found 
   end
 
   def create
     @subject = Subject.new(subject_params)
-    respond_to do |format|
-      if @subject.save
-        format.json { render json: { subject: @subject }, status: :created }
-      else
-        format.json { render json: @subject.errors, status: :unprocessable_entity }
-      end
+    if @subject.save
+       render json: { subject: @subject }, status: :created
+    else
+      render json: @subject.errors, status: :unprocessable_entity 
     end
   end
 
   def update
-    respond_to do |format|
-      if @subject.update(subject_params)
-        format.json { render json: { subject: @subject }, status: :ok }
-      else
-        format.json { render json: @subject.errors, status: :unprocessable_entity }
-      end
+    if @subject.update(subject_params)
+      render json: { subject: @subject }, status: :ok 
+    else
+      render json: @subject.errors, status: :unprocessable_entity
     end
   rescue StandardError => e
-    respond_to do |format|
-      format.json { render json: { error: e.message }, status: :unprocessable_entity }
-    end
+    render json: { error: e.message }, status: :unprocessable_entity 
   end
 
   def edit
-    respond_to do |format|
-      format.json { render json: { subject: @subject }, status: :ok }
-    end
+    render json: { subject: @subject }, status: :ok 
   rescue ActiveRecord::RecordNotFound => e
-    respond_to do |format|
-      format.json { render json: { error: e.message }, status: :not_found }
-    end
+    render json: { error: e.message }, status: :not_found
   end
 
   def destroy
-    respond_to do |format|
-      @subject.destroy
-      format.json { render json: {}, status: :ok }
-    end
+    @subject.destroy
+    render json: { message: 'subject is deleted'}, status: :ok
   rescue ActiveRecord::RecordNotFound => e
-    respond_to do |format|
-      format.json { render json: { error: e.message }, status: :unprocessable_entity }
-    end
+    render json: { error: e.message }, status: :unprocessable_entity 
   end
 
   private
