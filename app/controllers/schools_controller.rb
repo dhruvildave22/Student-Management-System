@@ -1,6 +1,6 @@
 class SchoolsController < ApplicationController
   skip_before_action :verify_authenticity_token
-  before_action :set_school, only: [:show, :update, :edit :destroy]
+  before_action :set_school, only: [:show, :update, :edit, :destroy]
 
   def index
     @school = School.all
