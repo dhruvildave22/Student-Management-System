@@ -19,7 +19,6 @@ class SchoolsController < ApplicationController
     end
   end
 
-
   def create
     @school = School.new(school_params)
     respond_to do |format|
