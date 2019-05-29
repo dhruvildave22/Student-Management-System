@@ -20,6 +20,8 @@ class ExamsController < ApplicationController
     else
       render json: exam.errors, status: :unprocessable_entity
     end
+  rescue => e
+    render json: { error: e.message }, status: :unprocessable_entity
   end
 
   def update
@@ -37,6 +39,8 @@ class ExamsController < ApplicationController
     exam = Exam.find(params[:id])
     exam.destroy
     render json: { message: 'exam is deleted'}, status: :ok
+  rescue ActiveRecord::InvalidForeignKey => e
+    render json: { error: 'foreignKeyViolation exam can not be deleted'}, status: :internal_server_error  
   rescue ActiveRecord::RecordNotFound => e
     render json: { error: e.message }, status: :unprocessable_entity 
   end

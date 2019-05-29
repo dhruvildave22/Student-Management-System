@@ -31,12 +31,16 @@ class StudentsController < ApplicationController
     else
       render json: student.errors, status: :unprocessable_entity 
     end
+  rescue StandardError => e
+    render json: { error: e.message }, status: :unprocessable_entity 
   end
 
   def destroy
     student = Student.find(params[:id])
     student.destroy
     render json: { message: 'student is deleted'}, status: :ok
+  rescue ActiveRecord::InvalidForeignKey => e
+    render json: { error: 'foreignKeyViolation student can not be deleted'}, status: :internal_server_error
   rescue ActiveRecord::RecordNotFound => e
     render json: { error: e.message }, status: :unprocessable_entity
   end

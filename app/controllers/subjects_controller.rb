@@ -20,6 +20,8 @@ class SubjectsController < ApplicationController
     else
       render json: subject.errors, status: :unprocessable_entity 
     end
+  rescue StandardError => e
+    render json: { error: e.message }, status: :unprocessable_entity   
   end
 
   def update

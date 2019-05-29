@@ -20,6 +20,8 @@ class TeachersController < ApplicationController
     else
       render json: teacher.errors, status: :unprocessable_entity
     end
+  rescue StandardError => e
+    render json: { error: e.message }, status: :unprocessable_entity
   end
 
   def update
@@ -37,6 +39,8 @@ class TeachersController < ApplicationController
     teacher = Teacher.find(params[:id])
     teacher.destroy
     render json: { message: 'teacher is deleted'}, status: :ok
+  rescue ActiveRecord::InvalidForeignKey => e
+    render json: { error: 'foreignKeyViolation teacher can not be deleted'}, status: :internal_server_error
   rescue ActiveRecord::RecordNotFound => e
     render json: { error: e.message }, status: :unprocessable_entity
   end
