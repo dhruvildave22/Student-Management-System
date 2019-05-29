@@ -40,7 +40,7 @@ class ExamsController < ApplicationController
 
   def destroy
     @exam.destroy
-    render json: { message: 'subject is deleted'}, status: :ok
+    render json: { message: 'exam is deleted'}, status: :ok
   rescue ActiveRecord::RecordNotFound => e
     render json: { error: e.message }, status: :unprocessable_entity 
   end
