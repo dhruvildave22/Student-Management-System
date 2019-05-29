@@ -1,43 +1,69 @@
 class CoursesController < ApplicationController
   skip_before_action :verify_authenticity_token
-  before_action :set_course, only: [:show, :update, :destroy]
+  before_action :set_course, only: [:show, :update, :destroy, :edit]
 
   def index
-    @courses = Course.all
-    render json: { courses: @courses }, status: :ok 
+    @course = Course.all
+    respond_to do |format|
+      format.json { render json: { course: @course }, status: :ok }
+    end
   end
 
   def show
     respond_to do |format|
-      format.json { render json: @course, status: :ok }
+      format.json { render json: { course: @course }, status: :ok }
+    end
+  rescue ActiveRecord::RecordNotFound => e
+    respond_to do |format|
+      format.json { render json: { error: e.message }, status: :not_found }
     end
   end
 
-  def new
-    @course = Course.new
-  end
-
   def create
-    @course = Course.create(course_params)
+    @course = Course.new(course_params)
     respond_to do |format|
       if @course.save
-        format.json { render json: @course, status: :created }
+        format.json { render json: { course: @course }, status: :created }
+      else
+        format.json { render json: @course.errors, status: :unprocessable_entity }
       end
     end
   end
 
   def update
-    if @course.update(course_params)
-      json_response(@course, :updated)
-    else
-      json_response(@course, :unprocessable_entity)
+    respond_to do |format|
+      if @course.update(course_params)
+        format.json { render json: { course: @course }, status: :ok }
+      else
+        format.json { render json: @course.errors, status: :unprocessable_entity }
+      end
     end
-  end    
+  rescue StandardError => e
+    respond_to do |format|
+      format.json { render json: { error: e.message }, status: :unprocessable_entity }
+    end
+  end  
 
-  def destroy
-    @course.destroy
+  def edit
+    respond_to do |format|
+      format.json { render json: { course: @course }, status: :ok }
+    end
+  rescue ActiveRecord::RecordNotFound => e
+    respond_to do |format|
+      format.json { render json: { error: e.message }, status: :not_found }
+    end
   end
 
+  def destroy
+    respond_to do |format|
+      @course.destroy
+      format.json { render json: {}, status: :ok }
+    end
+  rescue ActiveRecord::RecordNotFound => e
+    respond_to do |format|
+      format.json { render json: { error: e.message }, status: :unprocessable_entity }
+    end
+  end
   private
   def set_course
     @course = Course.find(params[:id])
