@@ -1,6 +1,5 @@
 class SchoolsController < ApplicationController
   skip_before_action :verify_authenticity_token
-  before_action :set_school, only: [:show, :update, :edit, :destroy]
 
   def index
     @school = School.all
@@ -8,6 +7,7 @@ class SchoolsController < ApplicationController
   end
 
   def show
+    @school = School.find(params[:id])
     render json: { school: @school }, status: :ok 
   rescue ActiveRecord::RecordNotFound => e
     render json: { error: e.message }, status: :not_found 
@@ -23,6 +23,7 @@ class SchoolsController < ApplicationController
   end
 
   def update
+    @school = School.find(params[:id])
     if @school.update(school_params)
       render json: { school: @school }, status: :ok 
     else
@@ -33,12 +34,14 @@ class SchoolsController < ApplicationController
   end
 
   def edit
+    @school = School.find(params[:id])
     render json: { school: @school }, status: :ok 
   rescue ActiveRecord::RecordNotFound => e
      render json: { error: e.message }, status: :not_found 
   end
 
   def destroy
+    @school = School.find(params[:id])
     @school.destroy
     render json: { message: 'school is deleted'}, status: :ok
   rescue ActiveRecord::RecordNotFound => e
@@ -46,10 +49,6 @@ class SchoolsController < ApplicationController
   end
 
   private
-  def set_school
-   @school = School.find(params[:id])
-  end
-
   def school_params
     params.require(:school).permit(:s_name, :s_address, :phone_no)
   end

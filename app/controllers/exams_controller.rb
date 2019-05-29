@@ -1,6 +1,5 @@
 class ExamsController < ApplicationController
   skip_before_action :verify_authenticity_token
-  before_action :set_exam, only: [:show, :update, :destroy, :edit]
 
   def index
     @exam = Exam.all
@@ -8,6 +7,7 @@ class ExamsController < ApplicationController
   end
 
   def show
+    @exam = Exam.find(params[:id])
     render json: { exam: @exam }, status: :ok
   rescue ActiveRecord::RecordNotFound => e
     render json: { error: e.message }, status: :not_found
@@ -23,6 +23,7 @@ class ExamsController < ApplicationController
   end
 
   def update
+    @exam = Exam.find(params[:id])
     if @exam.update(exam_params)
       render json: { exam: @exam }, status: :ok
     else
@@ -33,12 +34,14 @@ class ExamsController < ApplicationController
   end   
 
   def edit
+    @exam = Exam.find(params[:id])
     render json: { exam: @exam }, status: :ok 
   rescue ActiveRecord::RecordNotFound => e
     render json: { error: e.message }, status: :not_found
   end
 
   def destroy
+    @exam = Exam.find(params[:id])
     @exam.destroy
     render json: { message: 'exam is deleted'}, status: :ok
   rescue ActiveRecord::RecordNotFound => e
@@ -46,10 +49,6 @@ class ExamsController < ApplicationController
   end
 
   private
-  def set_exam
-    @exam = Exam.find(params[:id])
-  end
-
   def exam_params
     params.require(:exam).permit(:exam_name, :exam_duration, :subject_id, :student_id)
   end

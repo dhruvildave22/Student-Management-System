@@ -1,6 +1,5 @@
 class CoursesController < ApplicationController
   skip_before_action :verify_authenticity_token
-  before_action :set_course, only: [:show, :update, :destroy, :edit]
 
   def index
     @course = Course.all
@@ -8,6 +7,7 @@ class CoursesController < ApplicationController
   end
 
   def show
+    @course = Course.find(params[:id])
     render json: { course: @course }, status: :ok 
   rescue ActiveRecord::RecordNotFound => e
     render json: { error: e.message }, status: :not_found 
@@ -23,6 +23,7 @@ class CoursesController < ApplicationController
   end
 
   def update
+    @course = Course.find(params[:id])
     if @course.update(course_params)
       render json: { course: @course }, status: :ok
     else
@@ -33,23 +34,21 @@ class CoursesController < ApplicationController
   end  
 
   def edit
+    @course = Course.find(params[:id])
     render json: { course: @course }, status: :ok
   rescue ActiveRecord::RecordNotFound => e
     render json: { error: e.message }, status: :not_found
   end
 
   def destroy
-    @course.destroy
+  @course = Course.find(params[:id])
+  @course.destroy
     render json: { message: 'subject is deleted'}, status: :ok
   rescue ActiveRecord::RecordNotFound => e
     render json: { error: e.message }, status: :unprocessable_entity 
   end
 
   private
-  def set_course
-    @course = Course.find(params[:id])
-  end
-
   def course_params
     params.require(:course).permit(:course_type, :school_id)
   end

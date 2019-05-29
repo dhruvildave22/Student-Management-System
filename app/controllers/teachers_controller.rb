@@ -1,6 +1,5 @@
 class TeachersController < ApplicationController
   skip_before_action :verify_authenticity_token
-  before_action :set_teacher, only: [:show, :update, :edit, :destroy]  
 
     def index
     @teacher = Teacher.all
@@ -8,6 +7,7 @@ class TeachersController < ApplicationController
   end
 
   def show
+    @teacher = Teacher.find(params[:id])
     render json: { teacher: @teacher }, status: :ok
   rescue ActiveRecord::RecordNotFound => e
     render json: { error: e.message }, status: :not_found 
@@ -23,22 +23,25 @@ class TeachersController < ApplicationController
   end
 
   def update
+    @teacher = Teacher.find(params[:id])
     if @teacher.update(teacher_params)
       render json: { teacher: @teacher }, status: :ok
     else
-      render json: @teacher.errors, status: :unprocessable_entity
+      render json: @teacher.errors,  status: :unprocessable_entity
     end
   rescue StandardError => e
     render json: { error: e.message }, status: :unprocessable_entity
   end
 
   def edit
+    @teacher = Teacher.find(params[:id])
     render json: { teacher: @teacher }, status: :ok
   rescue ActiveRecord::RecordNotFound => e
     render json: { error: e.message }, status: :not_found 
   end
 
   def destroy
+    @teacher = Teacher.find(params[:id])
     @teacher.destroy
     render json: { message: 'teacher is deleted'}, status: :ok
   rescue ActiveRecord::RecordNotFound => e
@@ -46,10 +49,6 @@ class TeachersController < ApplicationController
   end
 
   private
-  def set_teacher
-    @teacher = Teacher.find(params[:id])
-  end
-
   def teacher_params
     params.require(:teacher).permit(:t_name, :father_name, :gender, :date_of_birth, :t_address, :date_of_join, :teacher_id, :student, :teacherable_id, :teacherable_type)
   end
