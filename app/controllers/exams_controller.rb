@@ -8,7 +8,7 @@ class ExamsController < ApplicationController
   end
 
   def show
-    render json: { exam: @exam }, status: :ok }
+    render json: { exam: @exam }, status: :ok
   rescue ActiveRecord::RecordNotFound => e
     render json: { error: e.message }, status: :not_found
   end
@@ -24,7 +24,7 @@ class ExamsController < ApplicationController
 
   def update
     if @exam.update(exam_params)
-      { render json: { exam: @exam }, status: :ok
+      render json: { exam: @exam }, status: :ok
     else
       render json: @exam.errors, status: :unprocessable_entity
     end
