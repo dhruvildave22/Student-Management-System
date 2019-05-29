@@ -4,66 +4,47 @@ class TeachersController < ApplicationController
 
     def index
     @teacher = Teacher.all
-    respond_to do |format|
-      format.json { render json: { teacher: @teacher }, status: :ok }
-    end
+     render json: { teacher: @teacher }, status: :ok
   end
 
   def show
-    respond_to do |format|
-      format.json { render json: { teacher: @teacher }, status: :ok }
-    end
+    render json: { teacher: @teacher }, status: :ok
   rescue ActiveRecord::RecordNotFound => e
-    respond_to do |format|
-      format.json { render json: { error: e.message }, status: :not_found }
-    end
+    render json: { error: e.message }, status: :not_found 
   end
 
   def create
     @teacher = Teacher.new(teacher_params)
-    respond_to do |format|
-      if @teacher.save
-        format.json { render json: { teacher: @teacher }, status: :created }
-      else
-        format.json { render json: @teacher.errors, status: :unprocessable_entity }
-      end
+    if @teacher.save
+      render json: { teacher: @teacher }, status: :created 
+    else
+      render json: @teacher.errors, status: :unprocessable_entity
     end
   end
 
   def update
-    respond_to do |format|
-      if @teacher.update(teacher_params)
-        format.json { render json: { teacher: @teacher }, status: :ok }
-      else
-        format.json { render json: @teacher.errors, status: :unprocessable_entity }
-      end
+    if @teacher.update(teacher_params)
+      render json: { teacher: @teacher }, status: :ok
+    else
+      render json: @teacher.errors, status: :unprocessable_entity
     end
   rescue StandardError => e
-    respond_to do |format|
-      format.json { render json: { error: e.message }, status: :unprocessable_entity }
-    end
+    render json: { error: e.message }, status: :unprocessable_entity
   end
 
   def edit
-    respond_to do |format|
-      format.json { render json: { teacher: @teacher }, status: :ok }
-    end
+    render json: { teacher: @teacher }, status: :ok
   rescue ActiveRecord::RecordNotFound => e
-    respond_to do |format|
-      format.json { render json: { error: e.message }, status: :not_found }
-    end
+    render json: { error: e.message }, status: :not_found 
   end
 
   def destroy
-    respond_to do |format|
-      @teacher.destroy
-      format.json { render json: {}, status: :ok }
-    end
+    @teacher.destroy
+    render json: { message: 'teacher is deleted'}, status: :ok
   rescue ActiveRecord::RecordNotFound => e
-    respond_to do |format|
-      format.json { render json: { error: e.message }, status: :unprocessable_entity }
-    end
+    render json: { error: e.message }, status: :unprocessable_entity
   end
+
   private
   def set_teacher
     @teacher = Teacher.find(params[:id])
