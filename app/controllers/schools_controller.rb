@@ -20,7 +20,7 @@ class SchoolsController < ApplicationController
     else
       render json: school.errors, status: :unprocessable_entity 
     end
-  rescue StandardError => e
+  rescue => e
     render json: { error: e.message }, status: :unprocessable_entity  
   end
 
@@ -31,7 +31,7 @@ class SchoolsController < ApplicationController
     else
       render json: school.errors, status: :unprocessable_entity
     end
-  rescue StandardError => e
+  rescue => e
     render json: { error: e.message }, status: :unprocessable_entity 
   end
 

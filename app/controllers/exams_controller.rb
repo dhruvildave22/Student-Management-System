@@ -31,7 +31,7 @@ class ExamsController < ApplicationController
     else
       render json: exam.errors, status: :unprocessable_entity
     end
-  rescue StandardError => e
+  rescue => e
     render json: { error: e.message }, status: :unprocessable_entity
   end
 
