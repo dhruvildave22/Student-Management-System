@@ -1,5 +1,6 @@
 class SchoolsController < ApplicationController
   skip_before_action :verify_authenticity_token
+  before_action :update_transactions_filter, :only => [:show]
 
   def index
     school = School.all
@@ -48,6 +49,6 @@ class SchoolsController < ApplicationController
   private
   def school_params
     params.require(:school).permit(:s_name, :s_address, :phone_no)
-  end
+  end 
 end
 
