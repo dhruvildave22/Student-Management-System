@@ -3,7 +3,7 @@ class PartialsController < ApplicationController
 
   def update_school_and_teacher_code
     school = School.friendly.find_by_id(params[:id])
-    previous_school = School.previous
+    previous_school = school.previous
     if school.school_code == previous_school(params[:school_code])
       School.transaction do 
         school.update_attributes!(:school_code => params[:school_code])        
@@ -17,7 +17,3 @@ class PartialsController < ApplicationController
     end
   end
 end
-
-
-
-

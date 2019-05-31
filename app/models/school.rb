@@ -13,6 +13,6 @@ class School < ApplicationRecord
   end
 
   def previous
-    self.class.where("id < ?", id).last
+    self.class.where("id < ?", id).first
   end
 end
