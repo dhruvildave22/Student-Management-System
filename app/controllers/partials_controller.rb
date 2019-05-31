@@ -16,11 +16,3 @@ class PartialsController < ApplicationController
     end
   end
 end
-
-
-
-
-
-
-
-
