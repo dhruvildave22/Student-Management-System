@@ -11,8 +11,4 @@ class School < ApplicationRecord
   def find_teachers
     find_all_teachers(self)
   end
-
-  def previous
-    self.class.where("id < ?", id).first
-  end
 end
