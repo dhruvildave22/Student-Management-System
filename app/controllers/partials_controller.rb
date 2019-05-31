@@ -7,9 +7,9 @@ class PartialsController < ApplicationController
       School.transaction do 
         school.update_attributes!(:school_code => params[:school_code])        
         teacher = Teacher.find_by_id(params[:teacher_id])
-        teacher.update_attributes!(:teacher_code => params[:teacher_code])
+        teacher.update_attributes!(:teacher_code => school.school_code)
         student = Student.find_by_id(params[:student_id])
-        student.update_attributes!(:student_code => params[:student_code])
+        student.update_attributes!(:student_code => school.school_code)
       rescue ActiveRecord::RecordNotFound => e
         render json: { error: e.message }, status: :unprocessable_entity  
       end
