@@ -18,7 +18,7 @@ class SchoolsController < ApplicationController
     school = School.new(school_params)
     if school.save
       render json: { school: school }, status: :created 
-    else
+      else
       render json: school.errors, status: :unprocessable_entity 
     end
   rescue => e
