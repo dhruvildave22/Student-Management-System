@@ -6,6 +6,10 @@ class ExamsController < ApplicationController
     render json: { exam: exam }, status: :ok 
   end
 
+  def new 
+    @exam = Exam.new
+  end
+
   def show
     exam = Exam.find(params[:id])
     render json: { exam: exam }, status: :ok
@@ -26,10 +30,10 @@ class ExamsController < ApplicationController
 
   def update
     exam = Exam.find(params[:id])
-    if exam.update(exam_params)
+    if exam.update_with_conflict_validation(exam_params)
       render json: { exam: exam }, status: :ok
     else
-      render json: exam.errors, status: :unprocessable_entity
+      render :update
     end
   rescue => e
     render json: { error: e.message }, status: :unprocessable_entity

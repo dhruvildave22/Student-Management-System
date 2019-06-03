@@ -1,0 +1,21 @@
+<h1>Exams</h1>
+
+<table id="exams">
+  <tr>
+    <th>Exam Name</th>
+    <th>Exam duration</th>
+    <th>Subject_id</th>
+    <th>Student_id</th>
+  </tr>
+<% @exam.each do |exam| %>
+  <tr>
+    <td><%= exam.exam_name %></td>
+        <td><%= exam.exam_duration %></td>
+    <td><%= exam.subject_id %></td>
+    <td><%= exam.student_id %></td>
+
+  </tr>
+<% end %>
+</table>
+
+<p><%= link_to "New EXAM", new_exam_path %></p>

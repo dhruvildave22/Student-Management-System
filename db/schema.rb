@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_31_025750) do
+ActiveRecord::Schema.define(version: 2019_06_03_085301) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,6 +35,7 @@ ActiveRecord::Schema.define(version: 2019_05_31_025750) do
     t.integer "exam_duration"
     t.bigint "subject_id"
     t.bigint "student_id"
+    t.integer "lock_version", default: 0, null: false
     t.index ["student_id"], name: "index_exams_on_student_id"
     t.index ["subject_id"], name: "index_exams_on_subject_id"
   end

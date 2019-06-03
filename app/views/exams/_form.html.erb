@@ -1,0 +1,22 @@
+<%= form_for @exam do |f| %>
+<p>
+  <%= f.label :ExamName %>
+  <%= f.text_field :exam_name %> 
+</p>
+<p>
+    <%= f.label :Examduration %>
+  <%= f.text_field :exam_duration %> 
+</p>
+<p>
+    <%= f.label :SubjectId %>
+  <%= f.text_field :subject_id %> 
+  </p>
+  <p>
+    <%= f.label :student_id %>
+  <%= f.text_field :student_id %> 
+ </p>
+ <p>
+  <%= f.submit %>
+ </p>
+
+<% end %>
