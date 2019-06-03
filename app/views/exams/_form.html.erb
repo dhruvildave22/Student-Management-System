@@ -1,22 +1,41 @@
-<%= form_for @exam do |f| %>
-<p>
-  <%= f.label :ExamName %>
-  <%= f.text_field :exam_name %> 
-</p>
-<p>
-    <%= f.label :Examduration %>
-  <%= f.text_field :exam_duration %> 
-</p>
-<p>
-    <%= f.label :SubjectId %>
-  <%= f.text_field :subject_id %> 
-  </p>
-  <p>
-    <%= f.label :student_id %>
-  <%= f.text_field :student_id %> 
- </p>
- <p>
-  <%= f.submit %>
- </p>
+<%= form_with(model: exam, local: true) do |form| %>
+  <% if exam.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(exam.errors.count, "error") %> prohibited this exam from being saved:</h2>
 
+      <ul>
+      <% exam.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+<%= form.hidden_field :lock_version %>
+  <div class="field">
+    <%= form.label :exam_name %>
+    <%= form.text_field :exam_name %>
+  </div>
+
+
+  <div class="field">
+    <%= form.label :exam_duration %>
+    <%= form.text_field :exam_duration %>
+  </div>
+
+
+  <div class="field">
+    <%= form.label :subject_id %>
+    <%= form.text_field :subject_id %>
+  </div>
+
+
+  <div class="field">
+    <%= form.label :student_id %>
+    <%= form.text_field :student_id %>
+  </div>
+
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
 <% end %>

@@ -1,56 +1,61 @@
 class ExamsController < ApplicationController
-  skip_before_action :verify_authenticity_token
+  before_action :set_exam, only: [:show, :edit, :update, :destroy]
 
   def index
-    exam = Exam.all
-    render json: { exam: exam }, status: :ok 
-  end
-
-  def new 
-    @exam = Exam.new
+    @exams = Exam.all
   end
 
   def show
-    exam = Exam.find(params[:id])
-    render json: { exam: exam }, status: :ok
-  rescue ActiveRecord::RecordNotFound => e
-    render json: { error: e.message }, status: :not_found
+  end
+
+  def new
+    @exam = Exam.new
+  end
+
+  def edit
   end
 
   def create
-    exam = Exam.new(exam_params)
-    if exam.save
-      render json: { exam: exam }, status: :created
-    else
-      render json: exam.errors, status: :unprocessable_entity
+    @exam = Exam.new(exam_params)
+
+    respond_to do |format|
+      if @exam.save
+        format.html { redirect_to @exam, notice: 'Exam was successfully created.' }
+        format.json { render :show, status: :created, location: @exam }
+      else
+        format.html { render :new }
+        format.json { render json: @exam.errors, status: :unprocessable_entity }
+      end
     end
-  rescue => e
-    render json: { error: e.message }, status: :unprocessable_entity
   end
 
   def update
-    exam = Exam.find(params[:id])
-    if exam.update_with_conflict_validation(exam_params)
-      render json: { exam: exam }, status: :ok
-    else
-      render :update
+    respond_to do |format|
+      if @exam.update(exam_params)
+        format.html { redirect_to @exam, notice: 'Exam was successfully updated.' }
+        format.json { render :show, status: :ok, location: @exam }
+      else
+        format.html { render :edit }
+        format.json { render json: @exam.errors, status: :unprocessable_entity }
+      end
     end
-  rescue => e
-    render json: { error: e.message }, status: :unprocessable_entity
   end
 
   def destroy
-    exam = Exam.find(params[:id])
-    exam.destroy
-    render json: { message: 'exam is deleted'}, status: :ok
-  rescue ActiveRecord::InvalidForeignKey => e
-    render json: { error: 'foreignKeyViolation exam can not be deleted'}, status: :internal_server_error  
-  rescue ActiveRecord::RecordNotFound => e
-    render json: { error: e.message }, status: :unprocessable_entity 
+    @exam.destroy
+    respond_to do |format|
+      format.html { redirect_to exams_url, notice: 'Exam was successfully destroyed.' }
+      format.json { head :no_content }
+    end
   end
 
   private
-  def exam_params
-    params.require(:exam).permit(:exam_name, :exam_duration, :subject_id, :student_id)
-  end
+    def set_exam
+      @exam = Exam.find(params[:id])
+    end
+
+    # Never trust parameters from the scary internet, only allow the white list through.
+    def exam_params
+      params.require(:exam).permit(:exam_name, :exam_duration, :subject_id, :student_id)
+    end
 end
