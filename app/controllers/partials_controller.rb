@@ -16,6 +16,7 @@ class PartialsController < ApplicationController
       render json: { message: ' data not updated '}
     end
     rescue => e
-      render json: { error: ' data not found '}
+      render json: { message: ' data not found '}
   end
 end
+  
